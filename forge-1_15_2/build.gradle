@@ -24,7 +24,7 @@ minecraft {
 	// stable_#            Stables are built at the discretion of the MCP team.
 	// Use non-default mappings at your own risk. they may not always work.
 	// Simply re-run your setup task after changing the mappings to update your workspace.
-	mappings channel: 'stable', version: '58-1.14.4'
+	mappings = 'stable_60' //channel: 'stable', version: '58-1.14.4'
 	
 	runs {
 		client {
@@ -52,7 +52,7 @@ repositories {
 }
 
 dependencies {
-	minecraft 'net.minecraftforge:forge:1.14.4-28.1.0'
+	minecraft 'net.minecraftforge:forge:1.15.2-31.2.43'
 	shade "hu.trigary.iodine:client:${project.version}"
 	compileOnly 'org.jetbrains:annotations:17.0.0'
 }
@@ -70,5 +70,5 @@ jar {
 		}
 	}
 	
-	archiveName = "Iodine-Forge-1_14_4-${project.version}.jar"
+	archiveName = "Iodine-Forge-1_15_2-${project.version}.jar"
 }

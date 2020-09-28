@@ -2,7 +2,7 @@ name: IodineShowcase
 version: ${project.version}
 author: Trigary
 main: hu.trigary.iodine.showcase.IodineShowcase
-api-version: "1.13"
+api-version: "1.15"
 depend: [Iodine]
 
 commands:
