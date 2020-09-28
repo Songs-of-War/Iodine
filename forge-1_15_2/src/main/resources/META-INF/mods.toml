@@ -11,10 +11,10 @@ version="${file.jarVersion}" #mandatory
  # A display name for the mod
 displayName="Iodine" #mandatory
 # A URL for the "homepage" for this mod, displayed in the mod UI
-displayURL="https://github.com/Trigary/Iodine" #optional
+displayURL="https://github.com/Songs-of-War/Iodine" #optional
 # A text field displayed in the mod UI
-authors="Trigary" #optional
+authors="lucasboss45" #optional
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-A Minecraft mod - server plugin pair that adds custom GUIs and overlays. No more inventory and chat menus!
+Songs of War Server - Handler of server GUIs to the client
 '''
