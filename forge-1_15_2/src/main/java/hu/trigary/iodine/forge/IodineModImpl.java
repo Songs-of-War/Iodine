@@ -52,12 +52,12 @@ public class IodineModImpl extends IodineMod {
 	@Contract(pure = true)
 	@Override
 	public int getScreenWidth() {
-		return Minecraft.getInstance().mainWindow.getScaledWidth();
+		return Minecraft.getInstance().getMainWindow().getScaledWidth();
 	}
 	
 	@Contract(pure = true)
 	@Override
 	public int getScreenHeight() {
-		return Minecraft.getInstance().mainWindow.getScaledHeight();
+		return Minecraft.getInstance().getMainWindow().getScaledHeight();
 	}
 }

@@ -108,7 +108,7 @@ public class ProgressBarGuiElementImpl extends ProgressBarGuiElement {
 		}
 		
 		private static void draw(boolean vertical, int posX, int posY, int posOffset, int amount, int totalAmount,
-				int thickness, int texOffsetX, int texOffsetY, double texWidth, double texHeight) {
+				int thickness, int texOffsetX, int texOffsetY, float texWidth, float texHeight) {
 			Tessellator tessellator = Tessellator.getInstance();
 			BufferBuilder buffer = tessellator.getBuffer();
 			buffer.begin(7, DefaultVertexFormats.POSITION_TEX);
