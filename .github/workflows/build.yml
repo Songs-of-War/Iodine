@@ -23,14 +23,14 @@ jobs:
       with:
         name: Iodine-Bukkit-${{ steps.version.outputs.version }}.jar
         path: bukkit/build/libs/Iodine-Bukkit-${{ steps.version.outputs.version }}.jar
-    - name: Build forge-1_14_4
+    - name: Build forge-1_15_2
       run: |
-        cd forge-1_14_4
+        cd forge-1_15_2
         chmod +x gradlew 
         ./gradlew build --warning-mode all
         cd ..
     - name: Upload Forge mod JAR
       uses: actions/upload-artifact@v1
       with:
-        name: Iodine-Forge-1_14_4-${{ steps.version.outputs.version }}.jar
-        path: forge-1_14_4/build/libs/Iodine-Forge-1_14_4-${{ steps.version.outputs.version }}.jar
+        name: Iodine-Forge-1_15_2-${{ steps.version.outputs.version }}.jar
+        path: forge-1_15_2/build/libs/Iodine-Forge-1_15_2-${{ steps.version.outputs.version }}.jar
