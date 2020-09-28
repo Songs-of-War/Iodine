@@ -1,6 +1,6 @@
 name: Iodine
 version: ${version}
-authors: ["Trigary"]
-website: "https://github.com/Trigary/Iodine"
+authors: ["lucasboss45"]
+website: "https://github.com/Songs-of-War/Iodine"
 main: hu.trigary.iodine.bukkit.IodineBukkitPlugin
-api-version: "1.13"
+api-version: "1.15"
