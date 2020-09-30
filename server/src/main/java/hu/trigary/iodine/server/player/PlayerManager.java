@@ -6,9 +6,7 @@ import hu.trigary.iodine.server.gui.IodineOverlayImpl;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 
 /**
@@ -78,8 +76,14 @@ public abstract class PlayerManager {
 		if (iodinePlayer.getOpenGui() != null) {
 			iodinePlayer.getOpenGui().closeForNoPacket(iodinePlayer, true);
 		}
+		List<IodineOverlayImpl> ThingsToProcess = new ArrayList<IodineOverlayImpl>();
 		for (IodineOverlay overlay : iodinePlayer.getOverlays()) {
-			((IodineOverlayImpl) overlay).closeForNoPacket(iodinePlayer, true);
+			ThingsToProcess.add((IodineOverlayImpl) overlay);
+
+		}
+		// Run the methods after iterating over the list
+		for (IodineOverlayImpl overlay : ThingsToProcess) {
+			overlay.closeForNoPacket(iodinePlayer, true);
 		}
 		players.remove(player);
 		plugin.log(Level.OFF, "PlayerManager > removed {0}", iodinePlayer.getName());
