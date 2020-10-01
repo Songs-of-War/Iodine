@@ -143,7 +143,7 @@ public abstract class IodineRootImpl<T extends IodineRoot<T>> implements IodineR
 			@NotNull GuiElements<E> type, int x, int y, @NotNull Consumer<E> initializer) {
 		Validate.notNull(id, "ID must be non-null");
 		Validate.isTrue(!apiIdElements.containsKey(id), "IDs must be unique");
-		plugin.log(Level.OFF, "Root > adding element {0} to {1}", type, this.id);
+		//plugin.log(Level.OFF, "Root > adding element {0} to {1}", type, this.id);
 		GuiElementImpl<E> impl = plugin.getRootManager().createElement(type.getType(), this, nextElementId, id);
 		elements.put(nextElementId++, impl);
 		apiIdElements.put(id, impl);
@@ -160,7 +160,7 @@ public abstract class IodineRootImpl<T extends IodineRoot<T>> implements IodineR
 	@Override
 	public final T removeElement(@NotNull Object id) {
 		GuiElementImpl<?> element = apiIdElements.remove(id);
-		plugin.log(Level.OFF, "Root > removing element {0}", element == null ? "null" : element.getInternalId());
+		//plugin.log(Level.OFF, "Root > removing element {0}", element == null ? "null" : element.getInternalId());
 		if (element != null) {
 			element.onRemoved();
 			element.getParent().removeChild(element);
@@ -184,7 +184,7 @@ public abstract class IodineRootImpl<T extends IodineRoot<T>> implements IodineR
 			return;
 		}
 		
-		plugin.log(Level.OFF, "Root > updating {0}", id);
+		//plugin.log(Level.OFF, "Root > updating {0}", id);
 		if (!viewers.isEmpty()) {
 			flaggedForUpdate.removeAll(flaggedForRemove);
 			serializeUpdateStart(BUFFER);
@@ -256,11 +256,11 @@ public abstract class IodineRootImpl<T extends IodineRoot<T>> implements IodineR
 		IodinePlayerBase iodinePlayer = (IodinePlayerBase) player;
 		iodinePlayer.assertModded();
 		if (viewers.contains(player)) {
-			plugin.log(Level.OFF, "Root > {0} already open for {1}", id, player.getName());
+			//plugin.log(Level.OFF, "Root > {0} already open for {1}", id, player.getName());
 			return thisT();
 		}
 		
-		plugin.log(Level.OFF, "Root > opening {0} for {1}", id, player.getName());
+		//plugin.log(Level.OFF, "Root > opening {0} for {1}", id, player.getName());
 		onPreOpened(iodinePlayer);
 		viewers.add(iodinePlayer);
 		if (viewers.size() == 1) {
@@ -322,9 +322,9 @@ public abstract class IodineRootImpl<T extends IodineRoot<T>> implements IodineR
 	 */
 	public final void closeForNoPacket(@NotNull IodinePlayerBase iodinePlayer, boolean byPlayer) {
 		if (!viewers.remove(iodinePlayer)) {
-			plugin.log(Level.OFF, "Root > {0} already closed for {1}", id, iodinePlayer.getName());
+			//plugin.log(Level.OFF, "Root > {0} already closed for {1}", id, iodinePlayer.getName());
 		} else {
-			plugin.log(Level.OFF, "Root > closing {0} for {1}", id, iodinePlayer.getName());
+			//plugin.log(Level.OFF, "Root > closing {0} for {1}", id, iodinePlayer.getName());
 			if (viewers.isEmpty()) {
 				plugin.getRootManager().forgetRoot(this);
 			}

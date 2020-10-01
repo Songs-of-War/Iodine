@@ -65,7 +65,7 @@ public final class IodineRootManager {
 	@NotNull
 	@Contract(pure = true)
 	public IodineGuiImpl createGui() {
-		plugin.log(Level.OFF, "GuiManager > new GUI {0}", nextGuiId);
+		//plugin.log(Level.OFF, "GuiManager > new GUI {0}", nextGuiId);
 		return new IodineGuiImpl(plugin, nextGuiId++);
 	}
 	
@@ -80,7 +80,7 @@ public final class IodineRootManager {
 	@NotNull
 	@Contract(pure = true)
 	public IodineOverlayImpl createOverlay(@NotNull IodineOverlay.Anchor anchor, int horizontalOffset, int verticalOffset) {
-		plugin.log(Level.OFF, "GuiManager > new overlay {0}", nextGuiId);
+		//plugin.log(Level.OFF, "GuiManager > new overlay {0}", nextGuiId);
 		return new IodineOverlayImpl(plugin, nextGuiId++, anchor, horizontalOffset, verticalOffset);
 	}
 	
@@ -126,7 +126,7 @@ public final class IodineRootManager {
 	 * @param root the instance to unregister
 	 */
 	public void forgetRoot(@NotNull IodineRootImpl<?> root) {
-		plugin.log(Level.OFF, "GuiManager > forgetting {0}", root.getId());
+		//plugin.log(Level.OFF, "GuiManager > forgetting {0}", root.getId());
 		Validate.notNull(rootMap.remove(root.getId()), "Can only forget registered instances");
 	}
 	
@@ -138,7 +138,7 @@ public final class IodineRootManager {
 	 * @param root the instance to register
 	 */
 	public void rememberRoot(@NotNull IodineRootImpl<?> root) {
-		plugin.log(Level.OFF, "GuiManager > remembering {0}", root.getId());
+		//plugin.log(Level.OFF, "GuiManager > remembering {0}", root.getId());
 		Validate.isTrue(rootMap.put(root.getId(), root) == null, "Can't remember registered instances");
 	}
 	

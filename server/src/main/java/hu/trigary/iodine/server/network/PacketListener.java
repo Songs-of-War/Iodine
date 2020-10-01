@@ -49,19 +49,19 @@ public abstract class PacketListener {
 		IodinePlayerBase iodinePlayer = plugin.getPlayer(player);
 		IodinePlayer.State state = iodinePlayer.getState();
 		if (state == IodinePlayer.State.INVALID) {
-			plugin.log(Level.OFF, "Network > ignoring message from invalid player {0}", iodinePlayer.getName());
+			plugin.log(Level.WARNING, "Network > ignoring message from invalid player {0}", iodinePlayer.getName());
 			return;
 		}
 		
 		if (message.length == 0) {
-			plugin.log(Level.INFO, "Network > received empty message from {0}, ignoring player", iodinePlayer.getName());
+			plugin.log(Level.WARNING, "Network > received empty message from {0}, ignoring player", iodinePlayer.getName());
 			ignore(iodinePlayer);
 			return;
 		}
 		
 		PacketType type = PacketType.fromId(message[0]);
 		if (type == null) {
-			plugin.log(Level.INFO, "Network > received message with invalid type-id ({0}) from {1}, ignoring player",
+			plugin.log(Level.WARNING, "Network > received message with invalid type-id ({0}) from {1}, ignoring player",
 					message[0], iodinePlayer.getName());
 			ignore(iodinePlayer);
 			return;
@@ -69,14 +69,14 @@ public abstract class PacketListener {
 		
 		PacketHandler handler = handlers[type.getUnsignedId()];
 		if (handler == null) {
-			plugin.log(Level.INFO, "Network > received message with invalid type {0} from {1}, ignoring player",
+			plugin.log(Level.WARNING, "Network > received message with invalid type {0} from {1}, ignoring player",
 					type, iodinePlayer.getName());
 			ignore(iodinePlayer);
 			return;
 		}
 		
 		if (handler.getTargetState() != state) {
-			plugin.log(Level.INFO, "Network > received {0} from {1} in (incorrect) state: {2}",
+			plugin.log(Level.WARNING, "Network > received {0} from {1} in (incorrect) state: {2}",
 					type, iodinePlayer.getName(), state);
 			return;
 		}
@@ -85,8 +85,8 @@ public abstract class PacketListener {
 			plugin.log(Level.OFF, "Network > handling {0} from {1}", type, iodinePlayer.getName());
 			handler.handle(iodinePlayer, buffer.update(message,1));
 		} catch (Throwable t) {
-			plugin.log(Level.INFO, "Network > error handling {0} from {1}, ignoring player", type, iodinePlayer.getName());
-			plugin.log(Level.INFO, "Network > cause (this might be a bug, might not):", t);
+			plugin.log(Level.WARNING, "Network > error handling {0} from {1}, ignoring player", type, iodinePlayer.getName());
+			plugin.log(Level.WARNING, "Network > cause (this might be a bug, might not):", t);
 			ignore(iodinePlayer);
 		}
 	}

@@ -75,7 +75,7 @@ public abstract class NetworkManager {
 	 * @param message the payload
 	 */
 	public final void send(@NotNull IodinePlayerBase player, @NotNull byte[] message) {
-		plugin.log(Level.OFF, "Network > sending {0} to {1}", PacketType.fromId(message[0]), player.getName());
+		//plugin.log(Level.OFF, "Network > sending {0} to {1}", PacketType.fromId(message[0]), player.getName());
 		sendImpl(player, message);
 	}
 	
