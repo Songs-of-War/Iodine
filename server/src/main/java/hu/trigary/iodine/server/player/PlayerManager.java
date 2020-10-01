@@ -87,7 +87,9 @@ public abstract class PlayerManager {
 			overlay.closeForNoPacket(iodinePlayer, true);
 		}
 		// Set the state back to vanilla because apparently it doesn't reset when players disconnect
-		iodinePlayer.setState(IodinePlayer.State.VANILLA);
+		if(iodinePlayer.getState() != IodinePlayer.State.VANILLA) {
+			iodinePlayer.setState(IodinePlayer.State.VANILLA);
+		}
 		players.remove(player);
 		plugin.log(Level.OFF, "PlayerManager > removed {0}", iodinePlayer.getName());
 	}
