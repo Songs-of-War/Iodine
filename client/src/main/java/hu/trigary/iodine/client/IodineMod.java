@@ -31,7 +31,7 @@ public abstract class IodineMod {
 	 */
 	public final void initialize(@NotNull Logger logger, @NotNull String version) {
 		this.logger = logger;
-		this.version = version;
+		this.version = "0.2.0";
 	}
 	
 	/**
@@ -126,6 +126,8 @@ public abstract class IodineMod {
 	 */
 	public final void onJoinedServer() {
 		logger.info("Joined server, attempting login");
+		logger.info("JOINED SERVER, VERSION STRING:");
+		logger.info(version);
 		networkManager.initialize();
 		networkManager.send(PacketType.CLIENT_LOGIN, b -> b.putString(version));
 	}

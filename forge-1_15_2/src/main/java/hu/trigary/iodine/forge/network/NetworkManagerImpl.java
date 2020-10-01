@@ -68,6 +68,9 @@ public class NetworkManagerImpl extends NetworkManager {
 		}
 		
 		PacketBuffer buffer = event.getPayload();
+		if(buffer == null) {
+			return;
+		}
 		byte[] array = new byte[buffer.readableBytes()];
 		if (buffer.hasArray()) {
 			System.arraycopy(buffer.array(), buffer.arrayOffset(), array, 0, array.length);
