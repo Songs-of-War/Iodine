@@ -1,6 +1,7 @@
 package hu.trigary.iodine.server.player;
 
 import hu.trigary.iodine.api.gui.IodineOverlay;
+import hu.trigary.iodine.api.player.IodinePlayer;
 import hu.trigary.iodine.server.IodinePlugin;
 import hu.trigary.iodine.server.gui.IodineOverlayImpl;
 import org.jetbrains.annotations.Contract;
@@ -85,6 +86,8 @@ public abstract class PlayerManager {
 		for (IodineOverlayImpl overlay : ThingsToProcess) {
 			overlay.closeForNoPacket(iodinePlayer, true);
 		}
+		// Set the state back to vanilla because apparently it doesn't reset when players disconnect
+		iodinePlayer.setState(IodinePlayer.State.VANILLA);
 		players.remove(player);
 		plugin.log(Level.OFF, "PlayerManager > removed {0}", iodinePlayer.getName());
 	}

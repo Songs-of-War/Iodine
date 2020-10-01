@@ -99,7 +99,7 @@ public class LoginPacketHandler extends PacketHandler {
 		getPlugin().log(Level.INFO, "Login > failed for {0} (invalid packet)", player.getName());
 		player.setState(IodinePlayer.State.INVALID);
 		getPlugin().getNetworkManager().send(player, PacketType.SERVER_LOGIN_FAILED, (byte) 0);
-		player.sendMessage(ChatUtils.formatError("Iodine handshake failed",
+		player.sendMessage(ChatUtils.formatError("GUI Handshake failed",
 				"Mod features have been disabled for this session.",
 				"The handshake has failed due to an invalid packet format.",
 				"Unable to determine which party is outdated.",
@@ -114,7 +114,7 @@ public class LoginPacketHandler extends PacketHandler {
 		String outdated = outdatedClient
 				? "Your client is outdated, please follow the server and update."
 				: "The server is outdated, consider asking them to update.";
-		player.sendMessage(ChatUtils.formatError("Iodine handshake failed",
+		player.sendMessage(ChatUtils.formatError("GUI Handshake failed",
 				"Mod features have been disabled for this session.",
 				"The handshake has failed due to a mod version mismatch.",
 				outdated));
