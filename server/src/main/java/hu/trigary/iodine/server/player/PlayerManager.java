@@ -72,7 +72,7 @@ public abstract class PlayerManager {
 			return;
 		}
 		
-		plugin.log(Level.OFF, "PlayerManager > removing {0}", iodinePlayer.getName());
+		//plugin.log(Level.OFF, "PlayerManager > removing {0}", iodinePlayer.getName());
 		if (iodinePlayer.getOpenGui() != null) {
 			iodinePlayer.getOpenGui().closeForNoPacket(iodinePlayer, true);
 		}
