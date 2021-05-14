@@ -6,7 +6,7 @@ buildscript {
 	}
 	
 	dependencies {
-		classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+		classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.1.+', changing: true
 	}
 }
 
@@ -25,7 +25,7 @@ minecraft {
 	// Use non-default mappings at your own risk. they may not always work.
 	// Simply re-run your setup task after changing the mappings to update your workspace.
 	//mappings = 'stable_60' //channel: 'stable', version: '58-1.14.4'
-	mappings channel: 'snapshot', version: '20200514-1.15.1'
+	mappings channel: 'official', version: '1.16.5'
 	
 	runs {
 		client {
@@ -53,7 +53,7 @@ repositories {
 }
 
 dependencies {
-	minecraft 'net.minecraftforge:forge:1.15.2-31.2.43'
+	minecraft 'net.minecraftforge:forge:1.16.5-36.1.18'
 	shade "hu.trigary.iodine:client:${project.version}"
 	compileOnly 'org.jetbrains:annotations:17.0.0'
 }
@@ -71,5 +71,5 @@ jar {
 		}
 	}
 	
-	archiveName = "Iodine-Forge-1_15_2-${project.version}.jar"
+	archiveName = "Iodine-Forge-1_16_5-${project.version}.jar"
 }
