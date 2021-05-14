@@ -11,6 +11,8 @@ buildscript {
 }
 
 apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 
 version = file('../VERSION').text //The version must be the same as the other iodine projects' version
 group = 'hu.trigary.iodine'
