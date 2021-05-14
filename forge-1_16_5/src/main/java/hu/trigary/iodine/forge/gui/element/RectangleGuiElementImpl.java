@@ -1,5 +1,6 @@
 package hu.trigary.iodine.forge.gui.element;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import hu.trigary.iodine.client.gui.IodineRoot;
 import hu.trigary.iodine.client.gui.element.RectangleGuiElement;
 import hu.trigary.iodine.forge.gui.IodineGuiUtils;
@@ -27,7 +28,7 @@ public class RectangleGuiElementImpl extends RectangleGuiElement {
 	
 	@Override
 	protected void drawImpl(int positionX, int positionY, int width, int height, int mouseX, int mouseY, float partialTicks) {
-		AbstractGui.fill(positionX, positionY, positionX + width, positionY + height, color);
+		AbstractGui.fill(new MatrixStack(), positionX, positionY, positionX + width, positionY + height, color);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package hu.trigary.iodine.forge.gui.element;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import hu.trigary.iodine.client.gui.IodineRoot;
 import hu.trigary.iodine.client.gui.element.ProgressBarGuiElement;
@@ -10,6 +11,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -40,7 +42,7 @@ public class ProgressBarGuiElementImpl extends ProgressBarGuiElement {
 	
 	@Override
 	protected void drawImpl(int positionX, int positionY, int width, int height, int mouseX, int mouseY, float partialTicks) {
-		widget.render(mouseX, mouseY, partialTicks);
+		widget.render(new MatrixStack(), mouseX, mouseY, partialTicks);
 	}
 
 	@Override
@@ -59,17 +61,20 @@ public class ProgressBarGuiElementImpl extends ProgressBarGuiElement {
 		private final int thickness;
 		
 		ProgressBar(int x, int y, int width, int height, boolean verticalOrientation, float progress) {
-			super(x, y, width, height, "");
+			super(x, y, width, height, new StringTextComponent(""));
 			vertical = verticalOrientation;
 			amount = vertical ? height : width;
 			progressAmount = (int) (amount * progress);
 			thickness = verticalOrientation ? width : height;
 		}
-		
+
+
+
+
 		@Override
-		public void renderButton(int mouseX, int mouseY, float partialTicks) {
-			Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
-			GlStateManager.color4f(1, 1, 1, alpha);
+		public void renderButton(@NotNull MatrixStack matrix, int mouseX, int mouseY, float partialTicks) {
+			Minecraft.getInstance().getTextureManager().bind(TEXTURE);
+			GlStateManager._color4f(1, 1, 1, alpha);
 			
 			int remainingAmount = amount - 2 * CAP_SIZE;
 			int offset = CAP_SIZE;
@@ -110,30 +115,30 @@ public class ProgressBarGuiElementImpl extends ProgressBarGuiElement {
 		private static void draw(boolean vertical, int posX, int posY, int posOffset, int amount, int totalAmount,
 				int thickness, int texOffsetX, int texOffsetY, float texWidth, float texHeight) {
 			Tessellator tessellator = Tessellator.getInstance();
-			BufferBuilder buffer = tessellator.getBuffer();
+			BufferBuilder buffer = tessellator.getBuilder();
 			buffer.begin(7, DefaultVertexFormats.POSITION_TEX);
 			if (vertical) {
 				posY += totalAmount - posOffset;
-				buffer.pos(posX, posY, 0).tex(texOffsetX / texWidth,
+				buffer.vertex(posX, posY, 0).uv(texOffsetX / texWidth,
 						texOffsetY / texHeight).endVertex();
-				buffer.pos(posX + thickness, posY, 0).tex(texOffsetX / texWidth,
+				buffer.vertex(posX + thickness, posY, 0).uv(texOffsetX / texWidth,
 						(texOffsetY + thickness) / texHeight).endVertex();
-				buffer.pos(posX + thickness, posY - amount, 0).tex((texOffsetX + amount) / texWidth,
+				buffer.vertex(posX + thickness, posY - amount, 0).uv((texOffsetX + amount) / texWidth,
 						(texOffsetY + thickness) / texHeight).endVertex();
-				buffer.pos(posX, posY - amount, 0).tex((texOffsetX + amount) / texWidth,
+				buffer.vertex(posX, posY - amount, 0).uv((texOffsetX + amount) / texWidth,
 						texOffsetY / texHeight).endVertex();
 			} else {
 				posX += posOffset;
-				buffer.pos(posX, posY + thickness, 0).tex(texOffsetX / texWidth,
+				buffer.vertex(posX, posY + thickness, 0).uv(texOffsetX / texWidth,
 						(texOffsetY + thickness) / texHeight).endVertex();
-				buffer.pos(posX + amount, posY + thickness, 0).tex((texOffsetX + amount) / texWidth,
+				buffer.vertex(posX + amount, posY + thickness, 0).uv((texOffsetX + amount) / texWidth,
 						(texOffsetY + thickness) / texHeight).endVertex();
-				buffer.pos(posX + amount, posY, 0).tex((texOffsetX + amount) / texWidth,
+				buffer.vertex(posX + amount, posY, 0).uv((texOffsetX + amount) / texWidth,
 						texOffsetY / texHeight).endVertex();
-				buffer.pos(posX, posY, 0).tex(texOffsetX / texWidth,
+				buffer.vertex(posX, posY, 0).uv(texOffsetX / texWidth,
 						texOffsetY / texHeight).endVertex();
 			}
-			tessellator.draw();
+			tessellator.end();
 		}
 	}
 }

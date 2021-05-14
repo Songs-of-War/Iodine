@@ -1,5 +1,6 @@
 package hu.trigary.iodine.forge.gui.element;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import hu.trigary.iodine.client.gui.IodineRoot;
 import hu.trigary.iodine.client.gui.element.RadioButtonGuiElement;
@@ -7,6 +8,7 @@ import hu.trigary.iodine.forge.gui.IodineGuiUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.AbstractButton;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -36,7 +38,7 @@ public class RadioButtonGuiElementImpl extends RadioButtonGuiElement {
 	
 	@Override
 	protected void drawImpl(int positionX, int positionY, int width, int height, int mouseX, int mouseY, float partialTicks) {
-		widget.render(mouseX, mouseY, partialTicks);
+		widget.render(new MatrixStack(), mouseX, mouseY, partialTicks);
 	}
 
 	@Override
@@ -59,7 +61,7 @@ public class RadioButtonGuiElementImpl extends RadioButtonGuiElement {
 		private final boolean checked;
 		
 		RadioButton(int x, int y, int width, int height, boolean checked) {
-			super(x, y, width, height, "");
+			super(x, y, width, height, new StringTextComponent(""));
 			this.checked = checked;
 		}
 		
@@ -69,10 +71,10 @@ public class RadioButtonGuiElementImpl extends RadioButtonGuiElement {
 		}
 		
 		@Override
-		public void renderButton(int mouseX, int mouseY, float partialTicks) {
-			Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
-			GlStateManager.color4f(1, 1, 1, alpha);
-			blit(x, y, checked ? 32 : 0, 0, width, height, 64, 32);
+		public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+			Minecraft.getInstance().getTextureManager().bind(TEXTURE);
+			GlStateManager._color4f(1, 1, 1, alpha);
+			blit(matrixStack, x, y, checked ? 32 : 0, 0, width, height, 64, 32);
 		}
 	}
 }

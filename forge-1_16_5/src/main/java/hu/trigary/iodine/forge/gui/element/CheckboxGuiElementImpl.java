@@ -1,9 +1,11 @@
 package hu.trigary.iodine.forge.gui.element;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import hu.trigary.iodine.client.gui.IodineRoot;
 import hu.trigary.iodine.client.gui.element.CheckboxGuiElement;
 import hu.trigary.iodine.forge.gui.IodineGuiUtils;
 import net.minecraft.client.gui.widget.button.CheckboxButton;
+import net.minecraft.util.text.StringTextComponent;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -26,7 +28,7 @@ public class CheckboxGuiElementImpl extends CheckboxGuiElement {
 	
 	@Override
 	protected void updateImpl(int positionX, int positionY, int width, int height) {
-		widget = new CheckboxButton(positionX, positionY, width, height, "", checked) {
+		widget = new CheckboxButton(positionX, positionY, width, height, new StringTextComponent(""), checked) {
 			@Override
 			public void onPress() {
 				onChanged();
@@ -37,7 +39,7 @@ public class CheckboxGuiElementImpl extends CheckboxGuiElement {
 	
 	@Override
 	protected void drawImpl(int positionX, int positionY, int width, int height, int mouseX, int mouseY, float partialTicks) {
-		widget.render(mouseX, mouseY, partialTicks);
+		widget.render(new MatrixStack(),mouseX, mouseY, partialTicks);
 	}
 
 	@Override

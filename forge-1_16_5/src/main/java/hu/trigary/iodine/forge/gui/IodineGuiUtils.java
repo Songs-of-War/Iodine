@@ -1,8 +1,10 @@
 package hu.trigary.iodine.forge.gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.util.text.StringTextComponent;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,10 +28,10 @@ public final class IodineGuiUtils {
 			return;
 		}
 
-		Screen screen = Minecraft.getInstance().currentScreen;
+		Screen screen = Minecraft.getInstance().screen;
 		if (screen instanceof IodineGuiScreen) {
-			screen.renderTooltip(tooltip, mouseX, mouseY);
-			GlStateManager.disableLighting();
+			screen.renderTooltip(new MatrixStack(), new StringTextComponent(tooltip), mouseX, mouseY);
+			GlStateManager._disableLighting();
 		} else {
 			throw new AssertionError("Attempted to render tooltip when no screens or a non-Iodine screen was open.");
 		}

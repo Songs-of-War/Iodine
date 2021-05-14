@@ -1,5 +1,6 @@
 package hu.trigary.iodine.forge.gui;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import hu.trigary.iodine.client.gui.IodineGui;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
@@ -43,13 +44,13 @@ public class IodineGuiScreen extends Screen {
 	
 	@Override
 	public void resize(@NotNull Minecraft minecraft, int screenWidth, int screenHeight) {
-		setSize(screenWidth, screenHeight);
+		init(minecraft, screenWidth, screenHeight);
 		gui.update();
 	}
 	
 	@Override
-	public void render(int mouseX, int mouseY, float partialTicks) {
-		renderBackground();
+	public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		renderBackground(matrixStack);
 		gui.draw(mouseX, mouseY, partialTicks);
 	}
 	
@@ -92,7 +93,7 @@ public class IodineGuiScreen extends Screen {
 	@Override
 	public boolean keyPressed(int key, int scanCode, int modifiers) {
 		if (key == 256) {
-			Minecraft.getInstance().displayGuiScreen(null);
+			Minecraft.getInstance().setScreen(null);
 		} else {
 			gui.onKeyPressed(key, scanCode, modifiers);
 		}

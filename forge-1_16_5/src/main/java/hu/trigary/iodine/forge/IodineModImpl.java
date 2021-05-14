@@ -40,11 +40,11 @@ public class IodineModImpl extends IodineMod {
 	}
 	
 	private void onJoined(@NotNull ClientPlayerNetworkEvent.LoggedInEvent event) {
-		Minecraft.getInstance().enqueue(this::onJoinedServer);
+		Minecraft.getInstance().tell(this::onJoinedServer);
 	}
 	
 	private void onQuit(@NotNull ClientPlayerNetworkEvent.LoggedOutEvent event) {
-		Minecraft.getInstance().enqueue(this::onQuitServer);
+		Minecraft.getInstance().tell(this::onQuitServer);
 	}
 	
 	
@@ -52,12 +52,12 @@ public class IodineModImpl extends IodineMod {
 	@Contract(pure = true)
 	@Override
 	public int getScreenWidth() {
-		return Minecraft.getInstance().getMainWindow().getScaledWidth();
+		return Minecraft.getInstance().getWindow().getGuiScaledWidth();
 	}
 	
 	@Contract(pure = true)
 	@Override
 	public int getScreenHeight() {
-		return Minecraft.getInstance().getMainWindow().getScaledHeight();
+		return Minecraft.getInstance().getWindow().getGuiScaledHeight();
 	}
 }

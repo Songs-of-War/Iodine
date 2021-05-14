@@ -46,7 +46,7 @@ public class NetworkManagerImpl extends NetworkManager {
 	@Override
 	public void initialize() {
 		//noinspection ConstantConditions
-		network = Minecraft.getInstance().getConnection().getNetworkManager();
+		network = Minecraft.getInstance().getConnection().getConnection();
 	}
 	
 	
@@ -55,7 +55,7 @@ public class NetworkManagerImpl extends NetworkManager {
 	protected void sendImpl(@NotNull byte[] message) {
 		Pair<PacketBuffer, Integer> data = Pair.of(new PacketBuffer(Unpooled.wrappedBuffer(message)), Integer.MIN_VALUE);
 		IPacket<?> packet = NetworkDirection.PLAY_TO_SERVER.buildPacket(data, channelName).getThis();
-		network.sendPacket(packet);
+		network.send(packet);
 	}
 	
 	private void onNetworkEvent(@NotNull NetworkEvent event) {

@@ -1,10 +1,12 @@
 package hu.trigary.iodine.forge.gui.element;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import hu.trigary.iodine.client.gui.IodineRoot;
 import hu.trigary.iodine.client.gui.element.TextFieldGuiElement;
 import hu.trigary.iodine.forge.gui.IodineGuiUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.util.text.StringTextComponent;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -27,15 +29,15 @@ public class TextFieldGuiElementImpl extends TextFieldGuiElement {
 	
 	@Override
 	protected void updateImpl(int positionX, int positionY, int width, int height) {
-		widget = new TextFieldWidget(Minecraft.getInstance().fontRenderer, positionX, positionY, width, height, text);
-		widget.setText(text);
-		widget.setMaxStringLength(maxLength);
-		widget.setValidator(regex == null ? s -> true : s -> regex.matcher(s).matches());
+		widget = new TextFieldWidget(Minecraft.getInstance().font, positionX, positionY, width, height, new StringTextComponent(text));
+		widget.setValue(text);
+		widget.setMaxLength(maxLength);
+		widget.setFilter(regex == null ? s -> true : s -> regex.matcher(s).matches());
 	}
 	
 	@Override
 	protected void drawImpl(int positionX, int positionY, int width, int height, int mouseX, int mouseY, float partialTicks) {
-		widget.render(mouseX, mouseY, partialTicks);
+		widget.render(new MatrixStack(),mouseX, mouseY, partialTicks);
 	}
 
 	@Override
@@ -49,7 +51,7 @@ public class TextFieldGuiElementImpl extends TextFieldGuiElement {
 	
 	@Override
 	public void setFocused(boolean focused) {
-		widget.setFocused2(focused);
+		widget.setFocus(focused);
 	}
 	
 	@Override
@@ -61,7 +63,7 @@ public class TextFieldGuiElementImpl extends TextFieldGuiElement {
 	public void onKeyPressed(int key, int scanCode, int modifiers) {
 		if (editable) {
 			widget.keyPressed(key, scanCode, modifiers);
-			onChanged(widget.getText());
+			onChanged(widget.getValue());
 		}
 	}
 	
@@ -69,7 +71,7 @@ public class TextFieldGuiElementImpl extends TextFieldGuiElement {
 	public void onCharTyped(char codePoint, int modifiers) {
 		if (editable) {
 			widget.charTyped(codePoint, modifiers);
-			onChanged(widget.getText());
+			onChanged(widget.getValue());
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package hu.trigary.iodine.forge.gui.element;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import hu.trigary.iodine.client.gui.IodineRoot;
 import hu.trigary.iodine.client.gui.element.TextGuiElement;
 import net.minecraft.client.Minecraft;
@@ -22,7 +23,7 @@ public class TextGuiElementImpl extends TextGuiElement {
 	 */
 	public TextGuiElementImpl(@NotNull IodineRoot root, int id) {
 		super(root, id);
-		fontRenderer = Minecraft.getInstance().fontRenderer;
+		fontRenderer = Minecraft.getInstance().font;
 	}
 	
 	
@@ -30,7 +31,7 @@ public class TextGuiElementImpl extends TextGuiElement {
 	@Override
 	protected void updateImpl(int positionX, int positionY, int width, int height) {
 		if (alignment != 4) {
-			offset = width - fontRenderer.getStringWidth(text);
+			offset = width - fontRenderer.width(text);
 			if (alignment == 5) {
 				offset /= 2;
 			}
@@ -39,6 +40,6 @@ public class TextGuiElementImpl extends TextGuiElement {
 	
 	@Override
 	protected void drawImpl(int positionX, int positionY, int width, int height, int mouseX, int mouseY, float partialTicks) {
-		fontRenderer.drawStringWithShadow(text, positionX + offset, positionY, COLOR);
+		fontRenderer.drawShadow(new MatrixStack(), text, positionX + offset, positionY, COLOR);
 	}
 }

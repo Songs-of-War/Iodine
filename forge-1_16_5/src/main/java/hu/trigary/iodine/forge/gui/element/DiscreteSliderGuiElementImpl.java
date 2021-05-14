@@ -1,9 +1,11 @@
 package hu.trigary.iodine.forge.gui.element;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import hu.trigary.iodine.client.gui.IodineRoot;
 import hu.trigary.iodine.client.gui.element.DiscreteSliderGuiElement;
 import hu.trigary.iodine.forge.gui.IodineGuiUtils;
 import net.minecraft.client.gui.widget.AbstractSlider;
+import net.minecraft.util.text.StringTextComponent;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -28,12 +30,12 @@ public class DiscreteSliderGuiElementImpl extends DiscreteSliderGuiElement {
 	protected void updateImpl(int positionX, int positionY, int width, int height) {
 		widget = new Slider(positionX, positionY, width, height, progress, maxProgress);
 		widget.active = editable;
-		widget.setMessage(text);
+		widget.setMessage(new StringTextComponent(text));
 	}
 	
 	@Override
 	protected void drawImpl(int positionX, int positionY, int width, int height, int mouseX, int mouseY, float partialTicks) {
-		widget.render(mouseX, mouseY, partialTicks);
+		widget.render(new MatrixStack(),mouseX, mouseY, partialTicks);
 	}
 
 	@Override
@@ -67,7 +69,7 @@ public class DiscreteSliderGuiElementImpl extends DiscreteSliderGuiElement {
 		private final short maxProgress;
 		
 		Slider(int x, int y, int width, int height, short progress, short maxProgress) {
-			super(x, y, width, height, (double) progress / maxProgress);
+			super(x, y, width, height, new StringTextComponent("") ,(double) progress / maxProgress);
 			this.maxProgress = maxProgress;
 		}
 		

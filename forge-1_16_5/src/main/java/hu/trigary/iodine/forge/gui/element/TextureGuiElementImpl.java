@@ -1,5 +1,6 @@
 package hu.trigary.iodine.forge.gui.element;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import hu.trigary.iodine.client.gui.IodineRoot;
 import hu.trigary.iodine.client.gui.element.TextureGuiElement;
@@ -34,18 +35,18 @@ public class TextureGuiElementImpl extends TextureGuiElement {
 	
 	@Override
 	protected void drawImpl(int positionX, int positionY, int width, int height, int mouseX, int mouseY, float partialTicks) {
-		Minecraft.getInstance().getTextureManager().bindTexture(resource);
-		GlStateManager.color4f(1, 1, 1, transparency / 255f);
+		Minecraft.getInstance().getTextureManager().bind(resource);
+		GlStateManager._color4f(1, 1, 1, transparency / 255f);
 		
 		if (interpolating) {
-			AbstractGui.blit(positionX, positionY, width, height, offsetX, offsetY,
+			AbstractGui.blit(new MatrixStack(),positionX, positionY, width, height, offsetX, offsetY,
 					textureWidth, textureHeight, fileWidth, fileHeight);
 		} else {
 			int columns = width / textureWidth;
 			int rows = height / textureHeight;
 			for (int x = 0; x < columns; x++) {
 				for (int y = 0; y < rows; y++) {
-					AbstractGui.blit(positionX + x * textureWidth, positionY + y * textureHeight,
+					AbstractGui.blit(new MatrixStack(), positionX + x * textureWidth, positionY + y * textureHeight,
 							textureWidth, textureHeight, offsetX, offsetY,
 							textureWidth, textureHeight, fileWidth, fileHeight);
 				}
@@ -53,14 +54,14 @@ public class TextureGuiElementImpl extends TextureGuiElement {
 			
 			int widthLeft = width % textureWidth;
 			int heightLeft = height % textureHeight;
-			AbstractGui.blit(positionX + columns * textureWidth, positionY + rows * textureHeight,
+			AbstractGui.blit(new MatrixStack() ,positionX + columns * textureWidth, positionY + rows * textureHeight,
 					widthLeft, heightLeft, offsetX, offsetY, widthLeft, heightLeft, fileWidth, fileHeight);
 			for (int x = 0; x < columns; x++) {
-				AbstractGui.blit(positionX + x * textureWidth, positionY + rows * textureHeight,
+				AbstractGui.blit(new MatrixStack() ,positionX + x * textureWidth, positionY + rows * textureHeight,
 						textureWidth, heightLeft, offsetX, offsetY, textureWidth, heightLeft, fileWidth, fileHeight);
 			}
 			for (int y = 0; y < rows; y++) {
-				AbstractGui.blit(positionX + columns * textureWidth, positionY + y * textureHeight,
+				AbstractGui.blit(new MatrixStack() ,positionX + columns * textureWidth, positionY + y * textureHeight,
 						widthLeft, textureHeight, offsetX, offsetY, widthLeft, textureHeight, fileWidth, fileHeight);
 			}
 		}
